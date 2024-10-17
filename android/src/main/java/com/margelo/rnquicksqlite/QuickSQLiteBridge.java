@@ -4,8 +4,8 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.turbomodule.core.CallInvokerHolderImpl;
 
 public class QuickSQLiteBridge {
-  private native void installNativeJsi(long jsContextNativePointer, CallInvokerHolderImpl jsCallInvokerHolder,
-      String docPath);
+  private native void installNativeJsi(long jsContextNativePointer, CallInvokerHolderImpl jsCallInvokerHolder, String docPath, String cachePath);
+
 
   private native void clearStateNativeJsi();
 
@@ -16,11 +16,14 @@ public class QuickSQLiteBridge {
     CallInvokerHolderImpl jsCallInvokerHolder = (CallInvokerHolderImpl) context.getCatalystInstance()
         .getJSCallInvokerHolder();
     final String path = context.getFilesDir().getAbsolutePath();
+    final String cachePath = context.getCacheDir().getAbsolutePath();
+
 
     installNativeJsi(
         jsContextPointer,
         jsCallInvokerHolder,
-        path);
+        path,
+        cachePath);
   }
 
   public void clearState() {
